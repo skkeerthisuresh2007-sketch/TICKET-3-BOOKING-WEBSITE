@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Ticket</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="ticket-box">
+
+    <h1>🎫 Travel Ticket</h1>
+
+    <p><strong>From:</strong> <span id="from"></span></p>
+    <p><strong>To:</strong> <span id="to"></span></p>
+    <p><strong>Seats:</strong> <span id="seats"></span></p>
+
+    <p><strong>Status:</strong> Confirmed ✅</p>
+
+</div>
+
+<div style="text-align:center;">
+    <button onclick="window.print()">Download Ticket</button>
+</div>
+
+<script>
+document.getElementById("from").innerText = localStorage.getItem("from");
+document.getElementById("to").innerText = localStorage.getItem("to");
+
+// 👉 selected seats show pannuvom
+document.getElementById("seats").innerText = localStorage.getItem("selectedSeats");
+</script>
+
+</body>
+</html>
