@@ -5,23 +5,25 @@
     <title>Your Ticket</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+    <body class="ticket-page">
 
 <div class="ticket-box">
+    <h2 style="color:#00ff99;">Booking Confirmed ✅</h2>
+    <h1>🎫 Your Ticket</h1>
 
-    <h1>🎫 Travel Ticket</h1>
-
-    <p><strong>From:</strong> <span id="from"></span></p>
-    <p><strong>To:</strong> <span id="to"></span></p>
-    <p><strong>Seats:</strong> <span id="seats"></span></p>
-
-    <p><strong>Status:</strong> Confirmed ✅</p>
+    <p>From: <span id="from"></span></p>
+    <p>To: <span id="to"></span></p>
+    <p>Seats: <span id="seats"></span></p>
+    <p class="status">Confirmed ✅</p>
+    <p>Amount: ₹<span id="price"></span></p>
+    <p>Date: <span id="date"></span></p>
+    <p>Time: <span id="time"></span></p>
 
 </div>
 
-<div style="text-align:center;">
-    <button onclick="window.print()">Download Ticket</button>
-</div>
+<button onclick="window.print()">Download Ticket</button>
+
 
 <script>
 document.getElementById("from").innerText = localStorage.getItem("from");
@@ -29,6 +31,26 @@ document.getElementById("to").innerText = localStorage.getItem("to");
 
 // 👉 selected seats show pannuvom
 document.getElementById("seats").innerText = localStorage.getItem("selectedSeats");
+
+let count = localStorage.getItem("seats");
+
+let text = count == 1 ? "Seat" : "Seats";
+
+document.getElementById("seats").innerText = count + " " + text + " Booked";
+
+console.log("Ticket page loaded");
+
+let price = localStorage.getItem("price");
+let date = localStorage.getItem("date");
+let time = localStorage.getItem("time");
+
+console.log(price, date, time); // DEBUG
+
+document.getElementById("price").innerText = price || "0";
+document.getElementById("date").innerText = date || "-";
+document.getElementById("time").innerText = time || "-";
+</script>
+
 </script>
 
 </body>

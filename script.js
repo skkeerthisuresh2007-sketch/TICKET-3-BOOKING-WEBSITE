@@ -1,5 +1,5 @@
 let vehicles = [
- {id:1,type:"bus",name:"Super Bus",price:500,img:"images/bus.png"},
+ {id:1,type:"bus",name:"Super Bus",price:500,img:"images/bus3.png"},
  {id:2,type:"bus",name:"Express Bus",price:600,img:"images/bus2.png"},
 
  {id:3,type:"train",name:"Superfast Train",price:800,img:"images/train.png"},
@@ -8,6 +8,16 @@ let vehicles = [
  {id:5,type:"flight",name:"Air India",price:3000,img:"images/flight2.png"},
  {id:6,type:"flight",name:"IndiGo",price:3500,img:"images/flight.png"}
 ];
+function goSeat(){
+
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+
+    localStorage.setItem("from", from);
+    localStorage.setItem("to", to);
+
+    window.location.href = "seat.html";
+}
 
 document.getElementById("ticketForm")?.addEventListener("submit", function(e){
     e.preventDefault();
@@ -36,11 +46,56 @@ document.getElementById("ticketForm")?.addEventListener("submit", function(e){
     });
 });
 
-function goSeat(id, from, to, seats){
-    // 👉 Data store pannuvom (ticket page use panna)
-    localStorage.setItem("from", from);
-    localStorage.setItem("to", to);
-    localStorage.setItem("seats", seats);
 
-    window.location.href = "seat.html";
+if(document.body.classList.contains("seat-page"))
+    
+/* ================= SEAT PAGE ================= */
+if(document.body.classList.contains("seat-page")){
+
+    let seats = document.querySelectorAll(".seat");
+    let confirmBtn = document.getElementById("confirmBtn");
+
+    seats.forEach(seat => {
+        seat.addEventListener("click", () => {
+
+            seat.classList.toggle("selected");
+
+            let selected = document.querySelectorAll(".seat.selected");
+
+            if(confirmBtn){
+                confirmBtn.style.display = selected.length > 0 ? "block" : "none";
+            }
+        });
+    });
+
+    if(confirmBtn){
+        confirmBtn.addEventListener("click", () => {
+
+            let selected = document.querySelectorAll(".seat.selected");
+            let seatNumbers = [];
+
+            selected.forEach(s => {
+                let num = s.innerText.trim();
+                if(num === "") num = "X";
+                seatNumbers.push(num);
+            });
+
+            localStorage.setItem("seats", seatNumbers.join(", "));
+            window.location.href = "ticket.html";
+        });
+    }
+}
+
+
+/* ================= TICKET PAGE ================= */
+if(document.body.classList.contains("ticket-page")){
+
+    let fromEl = document.getElementById("from");
+    let toEl = document.getElementById("to");
+    let seatsEl = document.getElementById("seats");
+
+    if(fromEl) fromEl.innerText = localStorage.getItem("from") || "-";
+    if(toEl) toEl.innerText = localStorage.getItem("to") || "-";
+    if(seatsEl) seatsEl.innerText = localStorage.getItem("seats") || "-";
+
 }
